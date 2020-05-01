@@ -63,7 +63,17 @@ async function uploadPayload(payload) {
     // minutes, but just waiting a little bit could maybe help.
     const backoffPeriods = [1, 5, 15];
 
+    const originalPayload = payload;
+
     for (let attempt = 0; attempt <= backoffPeriods.length; attempt++) {
+
+        if (attempt === 0) {
+            payload = JSON.parse(originalPayload);
+            payload.sarif = undefined;
+            payload = JSON.stringify(payload);
+        } else {
+            payload = originalPayload;
+        }
 
         const res: http.HttpClientResponse = await client.put(url, payload);
         core.debug('response status: ' + res.message.statusCode);
