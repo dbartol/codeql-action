@@ -5,7 +5,7 @@ import * as io from '@actions/io';
 import fileUrl from 'file-url';
 import * as fs from 'fs';
 import * as path from 'path';
-import zlib from 'zlib';
+// import zlib from 'zlib';
 
 import * as fingerprints from './fingerprints';
 import * as sharedEnv from './shared-environment';
@@ -138,7 +138,7 @@ async function uploadFiles(sarifFiles: string[]) {
         let sarifPayload = combineSarifFiles(sarifFiles);
         sarifPayload = fingerprints.addFingerprints(sarifPayload);
 
-        const zipped_sarif = zlib.gzipSync(sarifPayload).toString('base64');
+        // const zipped_sarif = zlib.gzipSync(sarifPayload).toString('base64');
         let checkoutPath = core.getInput('checkout_path');
         let checkoutURI = fileUrl(checkoutPath);
         const workflowRunID = parseInt(workflowRunIDStr, 10);
@@ -159,7 +159,7 @@ async function uploadFiles(sarifFiles: string[]) {
             "commit_oid": commitOid,
             "ref": ref,
             "analysis_name": analysisName,
-            "sarif": zipped_sarif,
+            // "sarif": zipped_sarif,
             "workflow_run_id": workflowRunID,
             "checkout_uri": checkoutURI,
             "environment": matrix,
