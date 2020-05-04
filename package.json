@@ -5,8 +5,15 @@
   "description": "CodeQL action",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "ava",
     "lint": "tslint -p . -c tslint.json 'src/**/*.ts'"
+  },
+  "ava": {
+    "typescript": {
+      "rewritePaths": {
+        "src/": "lib/"
+      }
+    }
   },
   "license": "MIT",
   "dependencies": {
